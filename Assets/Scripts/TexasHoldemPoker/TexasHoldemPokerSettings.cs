@@ -8,4 +8,7 @@ public class TexasHoldemPokerSettings : ScriptableObject
 {
     [SerializeField]
     public int Number_of_players;
+
+    [SerializeField]
+    public PlayerHand player_Prefab;
 }

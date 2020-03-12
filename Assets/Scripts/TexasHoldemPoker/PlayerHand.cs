@@ -7,11 +7,19 @@ public class PlayerHand : MonoBehaviour, ITexasHoldemHand
     List<Card> Hand;
     int HandValue;
 
+    string PlayerName;
+
     public PokerHands m_PokerHand { get; set; }
 
-    public PlayerHand()
+    public PlayerHand(string p_PlayerName)
     {
         Hand = new List<Card>();
+        PlayerName = p_PlayerName;
+    }
+
+    public string GetPlayerName()
+    {
+        return PlayerName;
     }
 
     public void ResetHand()

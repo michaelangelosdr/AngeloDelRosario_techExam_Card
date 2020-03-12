@@ -11,10 +11,14 @@ public class InitializeGame : State
     public override IEnumerator Start()
     {
         m_Manager.m_Board = new Board();
+
+
+
         m_Manager.m_Deck = new Deck();
 
+
         
-        
+        //Set UI to say GAME READY
 
         
         yield break;
