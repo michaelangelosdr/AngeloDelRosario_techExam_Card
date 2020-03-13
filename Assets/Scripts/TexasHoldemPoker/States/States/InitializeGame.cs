@@ -9,17 +9,14 @@ public class InitializeGame : State
 
     }
     public override IEnumerator Start()
-    {
-        m_Manager.m_Board = new Board();
-
-
-
+    {      
         m_Manager.m_Deck = new Deck();
-
-
-        
-        //Set UI to say GAME READY
-
+       for(int x=0; x<m_Manager.settings.Number_of_players;x++)
+        {
+            string name = "Player" + x+1;
+            m_Manager.m_Players[x].InitializeHand(name);
+        }
+        m_Manager.m_Board = new Board();
         
         yield break;
     }
