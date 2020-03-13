@@ -17,4 +17,9 @@ public abstract class State : MonoBehaviour
     {
         yield break;
     }   
+
+    public virtual IEnumerator PlayGame()
+    {
+        yield break;
+    }
 }
