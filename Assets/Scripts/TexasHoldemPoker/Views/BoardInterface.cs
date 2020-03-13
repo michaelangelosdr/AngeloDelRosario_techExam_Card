@@ -14,7 +14,7 @@ public class BoardInterface : MonoBehaviour
     {
         if (HandCounter > BoardCards.Count - 1) HandCounter = 0;
 
-        BoardCards[HandCounter].sprite = sprite;
+        BoardCards[HandCounter++].sprite = sprite;
     }
 
     public void ResetBoardCards()

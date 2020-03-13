@@ -9,15 +9,22 @@ public class InitializeGame : State
 
     }
     public override IEnumerator Start()
-    {      
-        m_Manager.m_Deck = new Deck();
+    {
+        Debug.Log("INITIALIZING");
+
+        m_Manager.m_Deck.InitializeDeck();
        for(int x=0; x<m_Manager.settings.Number_of_players;x++)
         {
-            string name = "Player" + x+1;
-            m_Manager.m_Players[x].InitializeHand(name);
+            m_Manager.m_Players[x].InitializePlayer();
+            string name = "Player" + (x+1);
+            m_Manager.m_Players[x].SetPlayerName(name);
+            m_Manager.m_Interface.SetPlayerName(x, name);
         }
         m_Manager.m_Board = new Board();
-        
+
+        m_Manager.m_Interface.AddListenerToPlayButton(m_Manager.PlayGame);
+
+        m_Manager.SetState(new Idle(m_Manager));
         yield break;
     }
 

@@ -6,18 +6,27 @@ public class Board : MonoBehaviour
 {
     private int MAX_NUMBER_OF_CARDS = 5;
 
-    Card[] BoardHand;
-    private int NumberOfCards;
+    List<Card> BoardHand;
+    private int NumberOfCards=0;
 
     public Board()
     {
         NumberOfCards = 0;
-        BoardHand = new Card[MAX_NUMBER_OF_CARDS];
+        BoardHand = new List<Card>();
     }
 
-    public void AddCardsToBoard(Card card)
+    public void SetBoardCards(Card card)
     {
-        BoardHand[NumberOfCards++] = card;
+       
+        BoardHand.Add(card);
+        NumberOfCards++;
+        //BoardHand[NumberOfCards++] = card;
+    }
+
+    public void ResetBoard()
+    {
+        NumberOfCards = 0;
+        BoardHand.Clear();
     }
 
     public int GetCardVal_OnIndex(int index)
@@ -29,5 +38,10 @@ public class Board : MonoBehaviour
 
         Debug.Log("hand Empty");
         return 0;
+    }
+
+    public int GetMaxNumberOfCards()
+    {
+        return MAX_NUMBER_OF_CARDS;
     }
 }

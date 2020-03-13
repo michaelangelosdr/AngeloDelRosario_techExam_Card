@@ -26,11 +26,11 @@ public class PlayerInterface : MonoBehaviour
         label_PlayerHand.text = result;
     }
 
-    public void SetHandCard(Sprite sprite)
+    public void SetHandCard(int handIndex, Sprite sprite)
     {
         if (HandCounter > HandCard_Sprites.Count - 1) HandCounter = 0;
 
-        HandCard_Sprites[HandCounter++].sprite = sprite;
+        HandCard_Sprites[handIndex].sprite = sprite;
     }
 
     public void ResetHandCards()

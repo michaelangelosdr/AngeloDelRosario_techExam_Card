@@ -11,7 +11,7 @@ public class Deck : MonoBehaviour
     string[] CardFaces = { "Clubs", "Spades", "Diamonds", "Hearts" };
 
     [SerializeField]
-    Sprite[] CardSprites;
+    public Sprite[] CardSprites;
 
     [SerializeField]
     Sprite DeckSprite;
@@ -20,19 +20,24 @@ public class Deck : MonoBehaviour
     Card[] CardList;
     int DeckCount;
 
+    
 
-    public Deck()
+    public void InitializeDeck()
     {
         CardList = new Card[MAX_DECK_COUNT];
-        int cardCount = 0;
-        for(int i =0; i<CardFaces.Length;i++)
-        {
-            for(int x=0;x<CardNames.Length;x++)
-            {
-                CardList[cardCount] = new Card(CardNames[x], CardFaces[i], CardSprites[cardCount], DeckSprite);
 
+        int cardCount = 0;
+        for (int i = 0; i < CardFaces.Length; i++)
+        {
+            for (int x = 0; x < CardNames.Length; x++)
+            {
+
+
+                Card c = new Card(CardNames[x], CardFaces[i], CardSprites[cardCount], DeckSprite);
+
+                CardList[cardCount] = c;
                 CardList[cardCount].SetDeckIndex(cardCount);
-                cardCount++;                
+                cardCount++;
             }
         }
         DeckCount = cardCount;
@@ -75,6 +80,9 @@ public class Deck : MonoBehaviour
     {
         return DeckCount;
     }
+
+    public Sprite getDeckSprite()
+    { return DeckSprite; }
 
     public Card GetCardAtIndex(int index)
     {

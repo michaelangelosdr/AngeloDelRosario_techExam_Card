@@ -11,10 +11,13 @@ public class Idle : State
 
     public override IEnumerator Start()
     {
+        Debug.Log("IDLE STATE");
         return base.Start();
     }
     public override IEnumerator PlayGame()
     {
+
+        m_Manager.SetState(new Deal(m_Manager));
 
         yield break;
     }

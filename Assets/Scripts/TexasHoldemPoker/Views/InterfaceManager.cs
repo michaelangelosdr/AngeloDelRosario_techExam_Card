@@ -53,14 +53,14 @@ public class InterfaceManager : MonoBehaviour
         player_interfaces[playerindex].SetHandResult(p_result);
     }
 
-    public void SetPlayerHandSprite(int playerindex, Sprite sprite)
+    public void SetPlayerHandSprite(int playerindex, int handIndex, Sprite sprite)
     {
         if (playerindex > player_interfaces.Count)
         {
             Debug.Log("No player on index " + playerindex);
             return;
         }
-        player_interfaces[playerindex].SetHandCard(sprite);
+        player_interfaces[playerindex].SetHandCard(handIndex,sprite);
     }
 
     public void ResetPlayerHand(int playerindex)

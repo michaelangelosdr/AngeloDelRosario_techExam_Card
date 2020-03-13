@@ -22,7 +22,13 @@ public class Card : MonoBehaviour
         m_cardSprite = sprite;
         m_cardBackSprite = BackSprite;
         m_Cardname = m_CardVal + " Of " + m_Cardface;
-        ShowCard(true);
+       
+    }
+
+
+    public Sprite getCardSprite()
+    {
+        return m_cardSprite;
     }
 
     public void SetDeckIndex(int deckindex)

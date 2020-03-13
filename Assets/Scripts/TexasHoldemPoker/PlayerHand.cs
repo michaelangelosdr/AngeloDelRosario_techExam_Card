@@ -17,9 +17,9 @@ public class PlayerHand : MonoBehaviour, ITexasHoldemHand
         PlayerName = p_PlayerName;
     }
 
-    public void InitializeHand(string p_PlayerName)
+    public void InitializePlayer()
     {
-        PlayerName = p_PlayerName;
+        Hand = new List<Card>();
     }
 
     public string GetPlayerName()
@@ -27,15 +27,18 @@ public class PlayerHand : MonoBehaviour, ITexasHoldemHand
         return PlayerName;
     }
 
+    public void SetPlayerName(string name)
+    {
+        PlayerName = name;
+    }
+
     public void ResetHand()
     {
-        Hand = new List<Card>();
+        Hand.Clear();
     }
 
     public void AddToHand(Card card)
-    {
-
-       card.ShowCard(true);
+    {      
        HandValue += PokerHelper.ConvertToVal(card.GetCardValue());
       
        Hand.Add(card);
