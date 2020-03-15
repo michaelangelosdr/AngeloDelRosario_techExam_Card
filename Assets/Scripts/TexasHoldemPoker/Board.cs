@@ -23,6 +23,22 @@ public class Board : MonoBehaviour
         //BoardHand[NumberOfCards++] = card;
     }
 
+
+    public Card GetBoardCard(int index)
+    {
+        if(BoardHand[index] == null)
+        {
+            Debug.Log("NO CARD IN BOARD");
+            return null;
+        }
+
+        return BoardHand[index];
+    }
+    public List<Card> getBoardCards()
+    {
+        return BoardHand;
+    }
+
     public void ResetBoard()
     {
         NumberOfCards = 0;
