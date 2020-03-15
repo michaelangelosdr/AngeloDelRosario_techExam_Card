@@ -12,6 +12,13 @@ public class Idle : State
     public override IEnumerator Start()
     {
         Debug.Log("IDLE STATE");
+
+        foreach(PlayerHand p in m_Manager.m_Players)
+        {
+            p.ResetHand();
+        }
+        m_Manager.m_Board.ResetBoard();
+
         return base.Start();
     }
     public override IEnumerator PlayGame()

@@ -59,15 +59,16 @@ public class Deal : State
             Card c = m_deck.Draw();
             m_board.SetBoardCards(c);
             m_Manager.m_Interface.SetBoardCard(c.getCardSprite());
-            yield return new WaitForSeconds(0.1f);
+           yield return new WaitForSeconds(0.1f);
         }
         #endregion
 
+        m_Manager.SetState(new CheckResult(m_Manager));
         yield break;
     }
 
     public override IEnumerator PlayGame()
-    {
+    {/*
         Deck m_deck = m_Manager.m_Deck;
         Board m_board = m_Manager.m_Board;
         List<PlayerHand> m_players = m_Manager.m_Players;
@@ -86,7 +87,7 @@ public class Deal : State
         }
 
         
-        m_Manager.SetState(new Deal(m_Manager));
+        m_Manager.SetState(new Deal(m_Manager));*/
         yield break;
     }
 }
