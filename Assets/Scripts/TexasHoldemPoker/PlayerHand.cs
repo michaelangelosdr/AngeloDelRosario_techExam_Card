@@ -18,8 +18,10 @@ public class PlayerHand : MonoBehaviour, ITexasHoldemHand
     }
 
     public void InitializePlayer()
-    {
-        Hand = new List<Card>();
+    {   if (Hand == null)
+            Hand = new List<Card>();
+        else
+            Hand.Clear();
     }
 
     public string GetPlayerName()
@@ -42,6 +44,10 @@ public class PlayerHand : MonoBehaviour, ITexasHoldemHand
        HandValue += PokerHelper.ConvertToVal(card.GetCardValue());
       
        Hand.Add(card);
+    }
+    public List<Card> getHandCards()
+    {
+        return Hand;
     }
 
     public void ShowAllCards()

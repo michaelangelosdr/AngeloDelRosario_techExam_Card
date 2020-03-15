@@ -25,6 +25,13 @@ public class Card : MonoBehaviour
        
     }
 
+    //For testing
+    public Card(string value, string face)
+    {
+        m_Cardface = face;       
+        m_CardVal = value;
+        m_Cardname = m_CardVal + " Of " + m_Cardface;
+    }
 
     public Sprite getCardSprite()
     {
@@ -54,6 +61,11 @@ public class Card : MonoBehaviour
         return m_CardVal;
     }
 
+    public string GetCardFace()
+    {
+        return m_Cardface;
+    }
+
     public void ShowCard(bool isFaceUp)
     {
         if (!isFaceUp)
@@ -65,6 +77,11 @@ public class Card : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = m_cardSprite;
         }
        
+    }
+
+    public Card GetCard()
+    {
+        return this;
     }
   
 }

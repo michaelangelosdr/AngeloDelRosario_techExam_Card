@@ -16,7 +16,7 @@ public class Deck : MonoBehaviour
     [SerializeField]
     Sprite DeckSprite;
 
-
+  
     Card[] CardList;
     int DeckCount;
 
@@ -73,6 +73,7 @@ public class Deck : MonoBehaviour
             templist[CardList[x].GetDeckIndex()] = CardList[x]; 
         }
         CardList = templist;
+
         DeckCount = MAX_DECK_COUNT;
     }
 
