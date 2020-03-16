@@ -2525,7 +2525,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Texas Holdem poker!
 
-    fitted for 1080x1920 resolution'
+    Target Resolution: 1080x1920'
 --- !u!222 &1686249267
 CanvasRenderer:
   m_ObjectHideFlags: 0
