@@ -4,6 +4,9 @@
 
 Assets used: Boardgamepack v2 from kennyassets.com 
 
+To play the project on your browser, simply open this link: 
+https://michaelangelosdr.github.io/AngeloDelRosario_techExam_Card/HTML5/index.html
+
 # Code Objects
  * Playerhand.cs - the object representing a player's hand. 
  * Card - a card object.
