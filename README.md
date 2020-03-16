@@ -2,6 +2,8 @@
 ### Texas Holdem' Poker mini-game
 ### Email: michaelangelosdr@gmail.com
 
+Assets used: Boardgamepack v2 from kennyassets.com 
+
 # Code Objects
  * Playerhand.cs - the object representing a player's hand. 
  * Card - a card object.
