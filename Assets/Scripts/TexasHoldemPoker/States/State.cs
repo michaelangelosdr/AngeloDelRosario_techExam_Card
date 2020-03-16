@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class State : MonoBehaviour
 {
-
-    //Make a base manager class in the future for extention of state machine
     protected TexasHoldemPokerManager m_Manager;
 
     public State(TexasHoldemPokerManager manager)
@@ -17,4 +15,9 @@ public abstract class State : MonoBehaviour
     {
         yield break;
     }   
+
+    public virtual IEnumerator PlayGame()
+    {
+        yield break;
+    }
 }

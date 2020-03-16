@@ -6,21 +6,33 @@ public class TexasHoldemPokerManager : StateMachine
 {
     [SerializeField]
     public TexasHoldemPokerSettings settings;
-
+    [SerializeField]
     public Deck m_Deck;
-
     public List<PlayerHand> m_Players;
     public Board m_Board;
+    public InterfaceManager m_Interface;
+  
 
-    #region Game Engine Specifics
-
-    [SerializeField]
-    public List<Transform> PlayerSpots;
-    #endregion
 
     private void Start()
     {
         SetState(new InitializeGame(this));
+    }
+
+    public void PlayGame()
+    {
+        StartCoroutine(State.PlayGame());
+    }
+
+     
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if(Input.GetKeyDown("space"))
+        {
+            PlayGame();
+        }
+#endif
     }
 
 }
