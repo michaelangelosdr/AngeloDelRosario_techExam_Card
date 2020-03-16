@@ -78,6 +78,11 @@ public class InterfaceManager : MonoBehaviour
 
     public void SetWinnerResult(string Winner_name)
     {
+        if(Winner_name == " ")
+        {
+            ResultText.text = "...";
+            return;
+        }
         if (Winner_name == "Draw")
         {
             ResultText.text = "Draw!";

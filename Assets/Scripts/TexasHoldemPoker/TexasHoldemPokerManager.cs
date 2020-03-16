@@ -23,5 +23,16 @@ public class TexasHoldemPokerManager : StateMachine
     {
         StartCoroutine(State.PlayGame());
     }
-    
+
+     
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if(Input.GetKeyDown("space"))
+        {
+            PlayGame();
+        }
+#endif
+    }
+
 }

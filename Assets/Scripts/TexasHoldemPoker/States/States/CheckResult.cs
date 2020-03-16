@@ -13,7 +13,18 @@ public class CheckResult : State
     {
         List<Card> BoardCards = m_Manager.m_Board.getBoardCards();
         int m_index = 0;
-        foreach(PlayerHand p in m_Manager.m_Players)
+        //ClearConsole();
+        //List<Card> cardtest = new List<Card>();
+
+        //cardtest.Add(new Card("2", "Hearts"));
+        //cardtest.Add(new Card("3", "Diamonds"));
+        //cardtest.Add(new Card("4", "Hearts"));
+        //cardtest.Add(new Card("5", "Diamonds"));
+        //cardtest.Add(new Card("6", "Hearts"));
+        //cardtest.Add(new Card("7", "Diamonds"));
+        //cardtest.Add(new Card("Ace", "Hearts"));
+
+        foreach (PlayerHand p in m_Manager.m_Players)
         {
             List<Card> CombinedHand = new List<Card>();
             List<Card> PlayerHand = p.getHandCards();
@@ -25,13 +36,17 @@ public class CheckResult : State
             {
                 CombinedHand.Add(c);
             }
-            
+
 
 
             p.m_PokerHand = PokerHelper.CheckHand(ref PlayerHand,CombinedHand);
+            //p.m_PokerHand = PokerHelper.CheckHand(ref PlayerHand, cardtest);
 
+
+            p.setHandCards(PlayerHand);
+            Debug.Log("Player_CardHand:" + p.getHandCards().Count + " poker hand" + p.m_PokerHand);
             m_Manager.m_Interface.SetPlayerResult(m_index++,p.m_PokerHand.ToString());
-           Debug.Log(p.m_PokerHand);
+         
         }
 
         m_Manager.SetState(new CompResult(m_Manager));
@@ -39,5 +54,12 @@ public class CheckResult : State
         
     }
 
+    static void ClearConsole()
+    {
+        var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
 
+        var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+
+        clearMethod.Invoke(null, null);
+    }
 }

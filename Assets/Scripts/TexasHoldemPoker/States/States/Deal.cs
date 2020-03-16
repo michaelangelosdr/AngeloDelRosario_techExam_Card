@@ -14,10 +14,11 @@ public class Deal : State
         Deck m_deck = m_Manager.m_Deck;
         Board m_board = m_Manager.m_Board;
         List<PlayerHand> m_players = m_Manager.m_Players;
-        Debug.Log("DEAL STATE");
+        //Debug.Log("DEAL STATE");
         #region Deck Shuffle 
         m_deck.ResetDeck();
         m_deck.ShuffleDeck();
+        m_Manager.m_Interface.SetWinnerResult(" ");
         for (int x = 0; x < m_board.GetMaxNumberOfCards(); x++)
         {
             m_Manager.m_Interface.SetBoardCard(m_deck.getDeckSprite());
@@ -27,7 +28,9 @@ public class Deal : State
             for (int i = 0; i < 2; i++)
             {
                 m_Manager.m_Interface.SetPlayerHandSprite(x,i, m_deck.getDeckSprite());
+                
             }
+            m_Manager.m_Interface.SetPlayerResult(x, "...");
         }
         #endregion
 

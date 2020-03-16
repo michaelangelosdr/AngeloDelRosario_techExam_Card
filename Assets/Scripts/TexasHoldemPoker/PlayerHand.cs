@@ -49,6 +49,11 @@ public class PlayerHand : MonoBehaviour, ITexasHoldemHand
     {
         return Hand;
     }
+    public void setHandCards(List<Card> c)
+    {
+      
+        Hand = c;
+    }
 
     public void ShowAllCards()
     {

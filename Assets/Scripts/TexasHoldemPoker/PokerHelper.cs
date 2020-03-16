@@ -30,19 +30,24 @@ public class PokerHelper : MonoBehaviour
         SortCards(ref cards);
         Hand.Clear();
         //logTest(cards);
-
+        //List<Card> cardtest = new List<Card>();
+        //cardtest.Add(new Card("2", "Diamonds"));
+        //cardtest.Add(new Card("2", "Hearts"));
+        //cardtest.Add(new Card("7", "Diamonds"));
+        //cardtest.Add(new Card("8", "Hearts"));
+        //cardtest.Add(new Card("9", "Hearts"));
+        //cardtest.Add(new Card("10", "Hearts"));
+        //cardtest.Add(new Card("Jack", "Hearts"));
+      
+        //Debug.Log(CheckFlush(ref Hand,cardtest));
+        //logTestFive(Hand);
+        //Debug.Log(CheckStraight(Hand));
         //Debug.Log(Hand.Count);
-       /* List<Card> cardtest = new List<Card>();
-       
-        cardtest.Add(new Card("4", "Hearts"));
-        cardtest.Add(new Card("5", "Spades"));
-        cardtest.Add(new Card("6", "Clubs"));
-        cardtest.Add(new Card("Jack", "Diamonds"));
-        cardtest.Add(new Card("Queen", "Hearts")); 
-        cardtest.Add(new Card("King", "Hearts"));
-        cardtest.Add(new Card("Ace", "Diamonds"));
-        */
+        //logTestFive(Hand);
+
         
+       //Debug.Log(CheckStraight(ref Hand, cardtest));
+        //Debug.Log(Hand.Count);
 
         if (CheckFlush(ref Hand,cards))
         {
@@ -57,16 +62,17 @@ public class PokerHelper : MonoBehaviour
                 return PokerHands.STRAIGHT_FLUSH;
             }
 
-            isFlush = true;
+            //isFlush = true;
+            return PokerHands.FLUSH;
         }
         if(CheckFourOfAKind(ref Hand, cards))
         {
             return PokerHands.FOUR_OF_A_KIND;
         }
-        if(isFlush)
+        /*if(isFlush)
         {
             return PokerHands.FLUSH;
-        }
+        }*/
         if(CheckFullHouse(ref Hand,cards))
         {
             return PokerHands.FULL_HOUSE;
@@ -80,20 +86,26 @@ public class PokerHelper : MonoBehaviour
         {
             return PokerHands.THREE_PAIR;
         }
+        
+      
 
         //Will check for Two pair and pair. if no pairs were found, 
         //returns highest cards
         handresult = CheckTwoPair(ref Hand, cards);
-        if(handresult == PokerHands.HIGH_CARD)
+    
+        if (handresult == PokerHands.HIGH_CARD)
         {
             Hand.Clear();
-            for(int g = cards.Count-1;g>0;g--)
+            for(int g = cards.Count-1;g>1;g--)
             {
                 Hand.Add(cards[g]);
             }
         }
-
         
+
+
+
+        //LogCardNames(Hand);
         return handresult;
     }
 
@@ -142,11 +154,13 @@ public class PokerHelper : MonoBehaviour
         {
             if(l.Count>=5)
             {
-                /*
-                int StartIndex = l.Count - 5;
-                Debug.Log(StartIndex);
-                Debug.Log(l.Count);
-                */
+                
+                int diff = l.Count - 5;                
+                for(int x=0;x<diff;x++)
+                {
+                    l.Remove(x);
+                }
+
                 for(int i=0;i<l.Count;i++)
                 {
                     Hand.Add(cards[l[i]]);
@@ -158,18 +172,43 @@ public class PokerHelper : MonoBehaviour
         return IsFlush;
     }
 
+    public static string CheckDrawWinner(PlayerHand p1, PlayerHand p2)
+    {
+
+        for(int x=0; x<p1.getHandCards().Count;x++)
+        {
+            if( ConvertToVal(p1.getHandCards()[x].GetCardValue()) == ConvertToVal(p2.getHandCards()[x].GetCardValue()))
+            {
+                continue;
+            }
+            else if(ConvertToVal(p1.getHandCards()[x].GetCardValue()) > ConvertToVal(p2.getHandCards()[x].GetCardValue()))
+            {
+                return p1.GetPlayerName() ;
+            }
+            else if (ConvertToVal(p1.getHandCards()[x].GetCardValue()) < ConvertToVal(p2.getHandCards()[x].GetCardValue()))
+
+            {
+                return p2.GetPlayerName();
+            }
+
+        }
+
+        return "Draw";
+    }
+
     private static bool CheckStraight(List<Card> cards)
     {
         //2478910
         bool isStraight = true;
         int ctr = 0;
+        int Count = cards.Count - 5;
         for(int x=0; x<cards.Count-1;x++)
         {
             if (ConvertToVal(cards[x].GetCardValue()) + 1
                != ConvertToVal(cards[x + 1].GetCardValue()))
             {
                 
-                if (x >= 2 && ctr <4)
+                if (x >= Count && ctr <4)
                 {
                     return false;
                 }
@@ -207,11 +246,21 @@ public class PokerHelper : MonoBehaviour
                 }
                 if (ctr >= 4)
                 {
+                    if (Hand.Count > 5)
+                    {
+                        int diff = Hand.Count - 5;
+                        for (int xx = 0; xx < diff; xx++)
+                        {
+                            // Debug.Log(Hand[0].GetCardName());
+                            Hand.Remove(Hand[0]);
+                        }
+                    }
                     return true;
                 }
 
                 Hand.Clear();
                 Hand.Add(cards[x+1]);
+                ctr = 0;
             }
             else
             {
@@ -226,7 +275,7 @@ public class PokerHelper : MonoBehaviour
             int diff = Hand.Count - 5;
             for(int x=0;x<diff;x++)
             {
-                Debug.Log(Hand[0].GetCardName());
+               // Debug.Log(Hand[0].GetCardName());
                 Hand.Remove(Hand[0]);
             }
         }
@@ -250,47 +299,6 @@ public class PokerHelper : MonoBehaviour
         }
 
         return isRoyal;
-    }
-
-    //Redo putt secondary check on next 
-    private static bool CheckFullHouse(ref int HighestVal,ref int SecondHighestVal,List<Card> cards)
-    {
-
-     
-        List<Card> Temp_Cards = new List<Card>();
-        foreach(Card c in cards)
-        {
-            Temp_Cards.Add(c);
-        }
-
-        int CurrentHighestVal = 0;
-        int FinalHighestVal = 0;
-        if (CheckNOfAKind(ref CurrentHighestVal,3,Temp_Cards))
-        {
-            FinalHighestVal = CurrentHighestVal; 
-             Temp_Cards.RemoveAll(Card => ConvertToVal(Card.GetCardValue()) == CurrentHighestVal);
-            
-
-            if (CheckNOfAKind(ref CurrentHighestVal,2,Temp_Cards))
-            {
- 
-                if (FinalHighestVal>CurrentHighestVal)
-                {
-                    HighestVal = FinalHighestVal;
-                    SecondHighestVal = CurrentHighestVal;
-                }
-                else
-                {
-                    HighestVal = CurrentHighestVal;
-                    SecondHighestVal = FinalHighestVal;
-                }
-                return true;
-            }
-        }
-
-        
-
-        return false;
     }
 
     private static bool CheckFullHouse(ref List<Card> Hand, List<Card> cards)
@@ -374,47 +382,13 @@ public class PokerHelper : MonoBehaviour
 
         return false;
     }
-
-
-
-    private static bool CheckTwoPair(ref int HighestPair,ref int SecondHighestPair,ref int Kicker,List<Card> cards)
-    {
-        List<Card> Temp_Cards = new List<Card>();
-        foreach (Card c in cards)
-        {
-            Temp_Cards.Add(c);
-        }
-
-        int CurrentHighestVal = 0;
-
-        if (CheckNOfAKind(ref HighestPair, 2, Temp_Cards))
-        {
-            CurrentHighestVal = HighestPair;
-            Temp_Cards.RemoveAll(Card => ConvertToVal(Card.GetCardValue()) == CurrentHighestVal);
-
-            
-            //logTest(Temp_Cards);
-            if(CheckNOfAKind(ref SecondHighestPair,2,Temp_Cards))
-            {
-               
-                CurrentHighestVal = SecondHighestPair;
-                Temp_Cards.RemoveAll(Card => ConvertToVal(Card.GetCardValue()) == CurrentHighestVal);
-                Kicker = ConvertToVal(Temp_Cards[Temp_Cards.Count - 1].GetCardValue());
-                return true;
-            }
-        }
-
-
-
-        return false;
-    }
     private static PokerHands CheckTwoPair(ref List<Card> Hand, List<Card> cards)
     {
         Hand.Clear();
         List<Card> Temp_Handcards = new List<Card>();
-        int CurrentHighestVal = 0;
         List<Card> Temp_Cards = new List<Card>();
         int ctr = 0;
+        int CurrentHighestVal = 0;
         foreach (Card c in cards)
         {
             Temp_Cards.Add(c);
@@ -534,7 +508,7 @@ public class PokerHelper : MonoBehaviour
         int CurrentCheckIndex = 0;
         int CurrentCardList = 1;
         List<List<Card>> MultipleCards_List = new List<List<Card>>();
-
+        
        
         for (int x = 1; x < cards.Count; x++)
         {
@@ -588,7 +562,7 @@ public class PokerHelper : MonoBehaviour
         {
             IsNOfAKind = true;
         }
-        if(IsNOfAKind)
+        if (IsNOfAKind)
         {
             if (MultipleCards_List.Count > 1)
             {
@@ -607,6 +581,9 @@ public class PokerHelper : MonoBehaviour
 
                 hand = MultipleCards_List[0];
             }
+
+
+
             if (hand.Count > n)
             {
                 int diff = hand.Count - n;
@@ -616,26 +593,6 @@ public class PokerHelper : MonoBehaviour
                 }
             }
         }
-        /*
-        if (MultipleCards_List.Count > 1 && IsNOfAKind)
-        {  
-            for(int x=MultipleCards_List.Count-1; x>-1;x--) 
-            {
-                if (MultipleCards_List[x].Count>=n)
-                {
-                      //Debug.Log("HEHE");
-                    hand = MultipleCards_List[x];
-                    break;
-                }
-            }
-        }
-        else
-        {
-            
-            hand = MultipleCards_List[0];
-        }
-        */
-        
        
 
 
@@ -644,15 +601,16 @@ public class PokerHelper : MonoBehaviour
 
     }
 
+    
 
-    private static void LogCardNames(List<Card> cards)
+    public static void LogCardNames(List<Card> cards)
     {
         foreach(Card c in cards)
         {
             Debug.Log(c.GetCardName());
         }
     }
-    private static void logTestFive(List<Card> cards)
+    public static void logTestFive(List<Card> cards)
     {
         Debug.Log(cards[0].GetCardValue() + " " +
            cards[1].GetCardValue() + " " +
